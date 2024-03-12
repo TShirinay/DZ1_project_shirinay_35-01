@@ -17,12 +17,64 @@ gmailButton.addEventListener('click', () =>{
 
 const childBlock = document.querySelector('.child_block')
 const parentBlock = document.querySelector('.parent_block')
+
 let moveLeft = 0
+let moveLeft2 = 0
+
+const maxOffsetWidth = parentBlock.offsetWidth - childBlock.offsetWidth
+const maxOffsetHeight = parentBlock.offsetHeight - childBlock.offsetHeight
+
 const moveLeftChildBlock = () => {
-    if (moveLeft < 450) {
-        moveLeft += 5
+    if (moveLeft < maxOffsetWidth && moveLeft2 === 0) {
+        moveLeft ++
         childBlock.style.left = `${moveLeft}px`
+        requestAnimationFrame(moveLeftChildBlock)
+    } else if (moveLeft >= maxOffsetWidth && moveLeft2 < maxOffsetHeight) {
+        moveLeft2 ++
+        childBlock.style.top = `${moveLeft2}px`
+        requestAnimationFrame(moveLeftChildBlock)
+    } else if (moveLeft2 === maxOffsetHeight && moveLeft !== 0) {
+        moveLeft--
+        childBlock.style.left = `${moveLeft}px`
+        requestAnimationFrame(moveLeftChildBlock)
+    } else if (moveLeft === 0 && moveLeft2 !== 0){
+        moveLeft2 --
+        childBlock.style.top = `${moveLeft2}px`
         requestAnimationFrame(moveLeftChildBlock)
     }
 }
 moveLeftChildBlock()
+
+const startButton = document.querySelector('#start')
+const stopButton = document.querySelector('#stop')
+const resetButton = document.querySelector('#reset')
+const seconds = document.querySelector('#seconds')
+
+let count = 0
+let interval;
+let flag = false
+
+const timer = () => {
+    count ++
+    seconds.textContent = count
+}
+const startTimer = () => {
+    if (!flag ){
+        interval = setInterval(timer, 1000)
+        flag = true
+    }
+}
+startButton.addEventListener('click', startTimer)
+const stop = () => {
+    clearInterval(interval)
+    seconds.textContent = count
+    flag = false
+}
+stopButton.addEventListener('click', stop)
+const reset = () => {
+    clearInterval(interval)
+    count = 0
+    seconds.textContent = count
+    flag = false
+}
+resetButton.addEventListener('click', reset)
