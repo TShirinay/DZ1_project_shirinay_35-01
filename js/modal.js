@@ -36,4 +36,4 @@ const openModalScroll = () => {
     }
 }
 window.addEventListener('scroll', openModalScroll)
-setTimeout(openModal, 10000)
+// setTimeout(openModal, 10000)
