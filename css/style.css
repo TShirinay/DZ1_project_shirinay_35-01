@@ -58,6 +58,17 @@
     background: black;
 }
 
+.img_manhwa {
+    border-radius: 50%;
+    right: 200px;
+    top: 0px;
+    width: 200px;
+    height: 200px;
+    position: absolute;
+}
+.slide {
+    position: relative;
+}
 /* BUTTONS COLOR PICKER */
 
 .colors-buttons {
